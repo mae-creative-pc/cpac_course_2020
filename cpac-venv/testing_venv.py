@@ -43,24 +43,42 @@ try:
 except Exception as exc:
     print("Failed to import the package flask")
 
+try:
+    import matplotlib
+except Exception as exc:
+    print("Failed to import the package matplotlib")
+try:
+    import pandas
+except Exception as exc:
+    print("Failed to import the package pandas")
+try:
+    import seaborn
+except Exception as exc:
+    print("Failed to import the package seaborn")
+
+
 if not pv("1.18") <= pv(numpy.__version__) < pv("1.19"):
-    print("The version %s of the package  numpy does not match with those of the requirements file"%numpy.__version__)
+    print("The version %s of the package  numpy does not match with that of the requirements file"%numpy.__version__)
 if not pv("1.4") <= pv(scipy.__version__) < pv("1.5"):
-    print("The version %s of the package  scipy does not match with those of the requirements file"%scipy.__version__)
+    print("The version %s of the package  scipy does not match with that of the requirements file"%scipy.__version__)
 if not pv("0.8") <= pv(librosa.__version__) < pv("0.9"):
-    print("The version %s of the package  librosa does not match with those of the requirements file"%librosa.__version__)
+    print("The version %s of the package  librosa does not match with that of the requirements file"%librosa.__version__)
 if not pv("2.2") <= pv(tensorflow.__version__) < pv("2.3"):
-    print("The version %s of the package  tensorflow does not match with those of the requirements file"%tensorflow.__version__)
+    print("The version %s of the package  tensorflow does not match with that of the requirements file"%tensorflow.__version__)
 if not pv("0.23") <= pv(sklearn.__version__) < pv("0.24"): 
-    print("The version %s of the package sklearn does not match with those of the requirements file"%sklearn.__version__)
+    print("The version %s of the package sklearn does not match with that of the requirements file"%sklearn.__version__)
 if not pv("1.0") <= pv(cv.__version__) < pv("1.1"):
-    print("The version %s of the package  cv does not match with those of the requirements file"%cv.__version__)
+    print("The version %s of the package  cv does not match with that of the requirements file"%cv.__version__)
 if not pv("2.24") <= pv(requests.__version__) < pv("2.25"):
-    print("The version %s of the package  requests does not match with those of the requirements file"%requests.__version__)
+    print("The version %s of the package  requests does not match with that of the requirements file"%requests.__version__)
 if not pv("1.1") <= pv(flask.__version__) < pv("1.2"):
-    print("The version %s of the package  flask does not match with those of the requirements file"%flask.__version__)
-
-
+    print("The version %s of the package  flask does not match with that of the requirements file"%flask.__version__)
+if not pv("3.3")<=pv(matplotlib.__version__)< pv("3.4"):
+    print("The version %s of the package matplotlib does not match with that of the requirement file"%matplotlib.__version__)
+if not pv("1.1")<=pv(pandas.__version__)< pv("1.2"):
+    print("The version %s of the package pandas does not match with that of the requirement file"%pandas.__version__)
+if not pv("0.10")<=pv(seaborn.__version__)< pv("0.11"):
+    print("The version %s of the package seaborn does not match with that of the requirement file"%seaborn.__version__)
 print("### END OF TESTING")
 
 
