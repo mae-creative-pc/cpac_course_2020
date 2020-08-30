@@ -10,3 +10,4 @@ flask==1.1
 matplotlib==3.3
 pandas==1.1
 seaborn==0.10
+ipykernel==5.3
