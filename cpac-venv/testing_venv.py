@@ -55,6 +55,10 @@ try:
     import seaborn
 except Exception as exc:
     print("Failed to import the package seaborn")
+try:
+    import ipykernel
+except Exception as exc:
+    print("Failed to import the package seaborn")
 
 
 if not pv("1.18") <= pv(numpy.__version__) < pv("1.19"):
@@ -79,6 +83,8 @@ if not pv("1.1")<=pv(pandas.__version__)< pv("1.2"):
     print("The version %s of the package pandas does not match with that of the requirement file"%pandas.__version__)
 if not pv("0.10")<=pv(seaborn.__version__)< pv("0.11"):
     print("The version %s of the package seaborn does not match with that of the requirement file"%seaborn.__version__)
+if not pv("5.3")<=pv(ipykernel.__version__)< pv("5.4"):
+    print("The version %s of the package ipykernel does not match with that of the requirement file"%ipykernel.__version__)
 print("### END OF TESTING")
 
 
