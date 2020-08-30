@@ -62,10 +62,5 @@ if not pv("1.1") <= pv(flask.__version__) < pv("1.2"):
 
 
 print("### END OF TESTING")
-print("If you don't see anything between the beginning and the ending of the testing it means everything is fine")
-
-
-
-
 
 
