@@ -58,7 +58,7 @@ except Exception as exc:
 try:
     import ipykernel
 except Exception as exc:
-    print("Failed to import the package seaborn")
+    print("Failed to import the package ipykernel")
 
 
 if not pv("1.18") <= pv(numpy.__version__) < pv("1.19"):
