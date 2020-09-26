@@ -1,0 +1,26 @@
+{
+    "songs":[
+        {"name":"Michele Buccoli", "title":"Think about things", "artist":"Freyr",	"uri":"spotify:track:2iRniYXjMHKmwXqA2jYXP7"},
+        {"name":"Metehan Pala", "title":"Darkness", "artist":"Metehan Pala", "uri":"spotify:track:5uBm0eaUmsMGTbShxWdOp2"},
+        {"name":"Braian Ruiz", "title":"Shiny", "artist":"Lil Mariko, Full Tac",	"uri":"spotify:track:3wJSnKqCwy7vQRxpVq14WE"},
+        {"name":"Fotios Koutsoukos", "title":"About You Now", "artist":"OTTO",	"uri":"spotify:track:6ziJ9Zxu1x78Mgld5eIFC7"},
+        {"name":"Matteo Amerena", "title":"Gimme! Gimme! Gimme!", "artist":"Abba",	"uri":"spotify:track:3vkQ5DAB1qQMYO4Mr9zJN6"},
+        {"name":"Antonio Giganti", "title":"fbrmx", "artist":"Barry Lynn",	"uri":"spotify:track:4rmDNyDMhOl3Jzwnvzvbql"},
+        {"name":"Simone Mariani", "title":"Without Me", "artist":"Eminem",	"uri":"spotify:track:7lQ8MOhq6IN2w8EYcFNSUk"},
+        {"name":"Cecilia Marson", "title":"Happy", "artist":"C2C, Derek Martin",	"uri":"spotify:track:2ZXWOCdQ2IJ63RBOjuQVR3"},
+        {"name":"Clément Jameau", "title":"Tintarella di luna", "artist":"Mina", "uri":"https://open.spotify.com/track6Eq8JOhT7dvKUK1lWTG6IM?si=b97JCTtKRXOeYdJlMUA65A"},
+        {"name":"Jacopo Piccirillo", "title":"iFeel", "artist":"FKJ", "uri":"https://open.spotify.com/album/3pgkyPj3vSQ0TYCoGQJKaFsi=Tj6w-wznQ0GDwDBlnh8hyw"},
+        {"name":"Giulio Zanetti", "title":"Vitalik Buterin", "artist":"Gramatik, Kotek",	"uri":"spotify:track:27oTr4sROYzYdn440sFcFj"},
+        {"name":"Martino Schgor", "title":"L'amour toujours", "artist":"Gigi D'Agostino",	"uri":"spotify:track:4xGuK7FsXuZwHCCuNnPzbD"},
+        {"name":"Manuel Iglesias", "title":"Somebody else's guy", "artist":"Jocelyn Brown",	"uri":"spotify:track:2vpKX4wPbHQ0dRfDtoFChy"},
+        {"name":"Carlo Pulvirenti", "title":"Flashing Lights", "artist":"Kanye West",	"uri":"spotify:track:5GZ4znceWfpTLrBBpr83DW"},
+        {"name":"Eugenio Poliuti", "title":"Scar Tissue", "artist":"Red Hot Chili Peppers",	"uri":"spotify:track:1G391cbiT3v3Cywg8T7DM1"},
+        {"name":"Francesco Accetta", "title":"Like sugar", "artist":"Chaka khan", "uri": "https://open.spotify.com/track?0lWEatZXBBYUzEQX5aMeSj?si=7Hl_2pMKTfWqvuKYUeotqA"},
+        {"name":"Corrado Cantoni", "title":"Pop porno", "artist":"Il Genio",	"uri":"spotify:track:2CWfkhYbrrwGhuT4ABAjPO"},
+        {"name":"Laura Colzani", "title":"Gringo", "artist":"Parov Stelar", "uri":"https://open.spotify.com/track?27Ny94WTtwbbjN4gY3X0rc?si=IZ0rbChPRuO58NSfQl0APw"},
+        {"name":"Marco Ferrè", "title":"Dopamine", "artist":"Franc Moody",	"uri":"spotify:track:4sFyLyuJOUVMDcaSg1oHEa"},
+        {"name":"Samuele Buonassisi", "title":"Like This Like That", "artist":"What So Not",	"uri":"spotify:track:0IzEkovZCMo7twBGrhCMJ5"},
+        {"name":"Adriane Replogle", "title":"Going Up", "artist":"Infant Sorrow",	"uri":"spotify:track:4CZMCl7puezj2ZCkQeW2Rp"}
+]
+
+}
