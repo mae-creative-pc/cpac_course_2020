@@ -5,51 +5,35 @@ int SMOOTHING_WINDOW = 10;
 int MARGIN;
 
 float compute_flatness(FFT fft, float sum_of_spectrum){   
-  // using several products will get overflow;
-  // so instead of computing the harmonic mean, 
-  // we compute the exponential of the average of the logarithms
-   float sum_of_logs = 0;    
-   float flatness;
-   for(int i = 0; i < fft.specSize(); i++)
-   {
-     sum_of_logs += log(fft.getBand(i));      
-   }
-   flatness = exp(sum_of_logs/fft.specSize()) / 
-                 (0.000001+sum_of_spectrum/fft.specSize());
+  /* your code here*/
+  float flatness= random(-5,5);
    return flatness;
 }
 
 float compute_centroid(FFT fft, float sum_of_spectrum, 
                                         float[] freqs){
-   float centroid=0;
-    for(int i = 0; i < fft.specSize(); i++){
-      centroid += freqs[i]*fft.getBand(i);
-    }
-    return centroid/(0.00001+sum_of_spectrum);
+   float centroid=random(-5,5);
+   /* your code here*/
+    return centroid;
 }
 
 float compute_spread(FFT fft, float centroid, float sum_of_bands, float[] freqs){
-  float spread=0;
-  for (int i=0; i<fft.specSize(); i++){
-     spread+= pow(freqs[i]-centroid,2)*fft.getBand(i);
-  }
-  return sqrt(spread/(0.000001+sum_of_bands));
+  
+  float spread=random(-5,5);
+  /* your code here */
+  return spread;
 }
 
 float compute_skewness(FFT fft, float centroid, float spread, float[] freqs){
-  float skewness=0;
-  for (int i=0; i<fft.specSize(); i++){
-     skewness+= pow(freqs[i]-centroid,3)*fft.getBand(i);
-  }
-  return skewness/(0.00001+fft.specSize()*pow(spread,3));
+  float skewness=random(-5,5);
+  /* your code here */
+  return skewness;
 }
 
 float compute_entropy(FFT fft){
-  float entropy =0;
-  for (int i=1; i<fft.specSize(); i++){
-     entropy+= fft.getBand(i)*log(0.00001+fft.getBand(i));
-  }
-  return entropy/log(fft.specSize());
+  float entropy =random(-5,5);
+  /* your code here*/
+  return entropy;
 }
 
 float compute_sum_of_spectrum(FFT fft){
@@ -85,13 +69,6 @@ float[] compute_peak_band_and_freq(FFT fft, float[] freqs){
   return peak_band_freq;
 }
 
-float get_average(float[] buffer){
-  float average=0;
-  for(int i=0; i<buffer.length; i++){
-      average+=buffer[i];
-  }
-  return average/buffer.length;
-}
 float compute_energy(FFT fft) {    
   float energy = 0;
   for(int i = 0; i < fft.specSize(); i++){

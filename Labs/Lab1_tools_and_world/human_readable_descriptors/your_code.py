@@ -11,10 +11,11 @@ def sort_songs(audio_features):
     """
     sorted_songs=[]
 
-    # Random shuffle
+    # Random shuffle: replace it!
+    
     random_idxs=np.random.permutation(len(audio_features))
     for idx in random_idxs:
         sorted_songs.append(audio_features[idx])
-
+    # your code here
     
     return sorted_songs
