@@ -13,7 +13,11 @@ float compute_flatness(FFT fft, float sum_of_spectrum){
 float compute_centroid(FFT fft, float sum_of_spectrum, 
                                         float[] freqs){
    float centroid=random(-5,5);
-   /* your code here*/
+   float num=0;
+   for(int k=0; k<fft.specSize();k++){
+     num=num+freqs[k]* abs(fft.getBand(k));
+   }
+   centroid=num/sum_of_spectrum;
     return centroid;
 }
 
