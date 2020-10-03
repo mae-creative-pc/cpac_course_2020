@@ -22,6 +22,7 @@ void setup() {
   cam = new Movie(this, "./sample.mp4");
   // You can download a sample mp4 from 
   // https://drive.google.com/file/d/1F2plrz0jfmjITTVhP66BHdb7Fw961S1E/view?usp=sharing
+  // and place it in the data folder
   cam.loop();
   
   

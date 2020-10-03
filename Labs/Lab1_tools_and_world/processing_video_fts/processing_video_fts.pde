@@ -1,3 +1,15 @@
+/*
+This code works with webcam, which unfortunately is not 
+currently supported for macOS. If you want to use it,
+you need to rely on some not straightforward workaround which you
+can find here https://github.com/processing/processing-video/issues/134#issuecomment-617301980
+
+However, since it is quite hard to follow, if you are
+a macOS user, I suggest you to use processing_video_fts_mov script,
+which performs the same effects on a video file.
+
+*/
+
 import gab.opencv.*; 
 import processing.video.*;
 
