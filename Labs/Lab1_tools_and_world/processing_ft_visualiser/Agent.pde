@@ -12,6 +12,8 @@ float compute_flatness(FFT fft, float sum_of_spectrum){
 
 float compute_centroid(FFT fft, float sum_of_spectrum, 
                                         float[] freqs){
+    float centroid=random(-5,5);
+    /* your code here*/                                    
     return centroid;
 }
 
