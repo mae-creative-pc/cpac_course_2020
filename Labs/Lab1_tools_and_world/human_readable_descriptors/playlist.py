@@ -4,10 +4,10 @@ import os
 import json
 import time
 import requests
-
+import numpy as np
 os.chdir(os.path.abspath(os.path.dirname(__file__)))
 import your_code
-CREATE_SPOTIFY_PLAYLIST = False 
+CREATE_SPOTIFY_PLAYLIST = True 
 # Set it to False and I will create a long file instead
 
 # %% Get the token
@@ -53,8 +53,20 @@ for song in songs:
     time.sleep(1) # wait 1 second between the questions
 # %% Now let's create some way to organize them!
 
-shuffled_songs=your_code.sort_songs(audio_features)
+#shuffled_songs=your_code.sort_songs(audio_features)
+danceability=[]
+for song in audio_features:
+    danceability.append(song["danceability"])
+danceability=np.array(danceability)
+dance_idxs = np.argsort(danceability)
+ramp_up=dance_idxs[1::2]
+ramp_down=dance_idxs[0::2][::-1]
 
+shuffled_songs=[]
+for idx in ramp_up:
+    shuffled_songs.append(audio_features[idx])
+for idx in ramp_down:
+    shuffled_songs.append(audio_features[idx])
 # %% Create the playlist
 # Go to https://open.spotify.com/ , top right corner, press "Account"
 # look at your username or user_id
