@@ -8,13 +8,13 @@ class AgentPendulum{
   AgentPendulum(float x, float y, float r, float mass){
     this.pivotPos = new PVector(x, y);
     this.angle=random( -PI/2, -PI/4);
-    this.initAngle=angle;
+    this.initAngle=this.angle;
     this.r=r;
     this.mass=mass;
-    this.aVel=0;
-    this.aAcc=0;
-    this.massPos = new PVector(0, 0);
     this.radius=sqrt(this.mass/PI)*MASS_TO_PIXEL;    
+    /* other initialization?*/
+    
+    
   }
   void update(){    
     this.aVel+=this.aAcc;
@@ -30,23 +30,18 @@ class AgentPendulum{
     this.cutoff= alpha* cutoff +(1-alpha)*this.cutoff;
   }
   void applyForce(float force){    
-    this.aAcc+=force/this.mass;    
+    /* your code here */ 
   }
   void draw(){
     fill(200);
-    // draw pivot
-    ellipse(this.pivotPos.x, this.pivotPos.y, 5,5);
+    /* your code here: 
     
-    // draw arm
-    stroke(255);
-    strokeWeight(5);
-    line(this.pivotPos.x, this.pivotPos.y, 
-         this.massPos.x, this.massPos.y);       
-    noStroke();
+    // 1) draw pivot
+
+    // 2) draw arm with line
     
-    // draw mass
-    ellipse(this.massPos.x, this.massPos.y, 
-              this.radius, this.radius);
+    // 3) draw mass
+    
     
   }
 }

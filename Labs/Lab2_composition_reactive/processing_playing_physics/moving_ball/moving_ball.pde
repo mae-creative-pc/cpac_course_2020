@@ -26,7 +26,9 @@ void sendEffect(float cutoff, float vibrato){
 void draw(){
   background(0);
   mover.update();
+  /* remove this comment to use the effect
   mover.computeEffect();
   sendEffect(mover.cutoff, mover.vibrato);
+  */
   mover.draw();
 }

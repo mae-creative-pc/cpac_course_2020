@@ -20,10 +20,7 @@ class AgentMover{
   }
   void update(){    
     PVector delta = new PVector(mouseX, mouseY);
-    delta.sub(this.position);
-    delta.normalize();
-    delta.mult(CONSTANT_ACC);
-    this.acceleration.add(delta);
+    /* your code here, same at update in Mover */ 
     
     this.velocity.add(this.acceleration);
     this.velocity.limit(LIMIT_VELOCITY);
@@ -32,10 +29,7 @@ class AgentMover{
   }
   
   void computeEffect(){
-    float vibrato= constrain(this.position.x/width -0.5, -0.5, 0.5);
-    this.vibrato=alpha* vibrato + (1-alpha)*this.vibrato;
-    float new_cutoff=constrain((this.position.y/height),0,1);
-    this.cutoff= alpha* new_cutoff +(1-alpha)*this.cutoff;
+    /* your code here, same as in moving_ball */
   }
   void applyForce(PVector force){
      PVector f = force.copy();

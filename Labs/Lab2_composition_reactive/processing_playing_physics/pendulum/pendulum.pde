@@ -16,7 +16,9 @@ void setup(){
   ip_port = new NetAddress("127.0.0.1",PORT);
 }
 float computeForce(AgentPendulum pendulum){
-   return -1*pendulum.mass*G*sin(pendulum.angle)/pendulum.r;
+   float force=0;
+   /* your code here */ 
+   return force;
 }
 
 void sendEffect(float cutoff, float vibrato){
@@ -35,9 +37,11 @@ void draw(){
   float force=computeForce(pendulum);
   pendulum.applyForce(force);
   pendulum.update();
+  /* remove comment  for effect
   pendulum.computeEffect();
-  sendEffect(pendulum.cutoff, pendulum.vibrato);
   
+  sendEffect(pendulum.cutoff, pendulum.vibrato);
+  */
   pendulum.draw();
   
 }
