@@ -12,7 +12,7 @@ int EFFECT_SWITCH_COLORS=1;
 int EFFECT_DIFF_FRAMES=2;
 int EFFECT_OPTICAL_FLOW=3;
 
-int effect=NO_EFFECT;
+int effect=EFFECT_OPTICAL_FLOW;
 
 OpenCV opencv=null;
 
@@ -78,8 +78,10 @@ void effectDiffFrames(PImage img){
   
 }
 void changeColors(PImage img){
-  /* your code here*/
-  ;
+  for(int i=0; i<img.pixels.length; i++){
+    colorMode(HSB, 255);
+  
+  }
   
 }
 int max_M=0;
@@ -87,13 +89,13 @@ int min_M=0;
 void opticalFlow(PImage img){
   opencv.loadImage(img);
   opencv.calculateOpticalFlow();
-  int grid_size=10;
+  int grid_size=30;
   int half_grid=5;
   int c_x=0;
   int c_y=0;
   PVector aveFlow;
-  image(img,0,0);
-  stroke(255,0,0);
+  //image(img,0,0);
+  stroke(0,255,0);
   strokeWeight(2);
   
   for (int w=0; w<img.width; w+=grid_size){
@@ -108,6 +110,8 @@ void opticalFlow(PImage img){
 }
 
 void draw() {
+  fill(0);
+  rect(0,0,width, height);
   if (! cam.available()) {return;}
   cam.read();
   if(opencv ==null){
