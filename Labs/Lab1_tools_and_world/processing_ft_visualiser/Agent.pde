@@ -1,3 +1,4 @@
+
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 int HEIGHT=720;
@@ -12,22 +13,34 @@ float compute_flatness(FFT fft, float sum_of_spectrum){
 
 float compute_centroid(FFT fft, float sum_of_spectrum, 
                                         float[] freqs){
-    float centroid=random(-5,5);
-    /* your code here*/                                    
-    return centroid;
+  // float centroid=random(-5,5);
+   float sum = 0;
+   for (int i = 0; i < fft.specSize(); i++ )
+   {
+     sum += freqs[i]*abs(fft.getBand(i));
+   }
+   float centroid= sum / sum_of_spectrum;
+   return centroid;
+   
 }
 
 float compute_spread(FFT fft, float centroid, float sum_of_bands, float[] freqs){
-  
   float spread=random(-5,5);
-  /* your code here */
-  return spread;
+
+  float num = 0;
+  for (int i = 0; i < fft.specSize(); i++) {
+      num += pow(freqs[i] - centroid, 2) * fft.getBand(i);
+  }
+  return num / sum_of_bands;
 }
 
 float compute_skewness(FFT fft, float centroid, float spread, float[] freqs){
-  float skewness=random(-5,5);
-  /* your code here */
-  return skewness;
+  //float skewness=random(-5,5);
+  float num = 0;
+  for (int i = 0; i < fft.specSize(); i++) {
+    num += pow(freqs[i] - centroid, 3) * fft.getBand(i);
+  }
+  return num / (0.0001+fft.specSize() * pow(spread, 3));  
 }
 
 float compute_entropy(FFT fft){

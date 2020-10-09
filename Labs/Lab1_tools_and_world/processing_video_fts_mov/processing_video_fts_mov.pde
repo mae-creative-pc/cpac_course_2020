@@ -1,19 +1,7 @@
-/*
-This code works with webcam, which unfortunately is not 
-currently supported for macOS. If you want to use it,
-you need to rely on some not straightforward workaround which you
-can find here https://github.com/processing/processing-video/issues/134#issuecomment-617301980
-
-However, since it is quite hard to follow, if you are
-a macOS user, I suggest you to use processing_video_fts_mov script,
-which performs the same effects on a video file.
-
-*/
-
 import gab.opencv.*; 
 import processing.video.*;
 
-Capture cam;
+Movie cam; // instead of a camera, we use a movie 
 PImage old_frame;
 PImage diff_frame;
 boolean is_first_frame=true; 
@@ -24,40 +12,29 @@ int EFFECT_SWITCH_COLORS=1;
 int EFFECT_DIFF_FRAMES=2;
 int EFFECT_OPTICAL_FLOW=3;
 
-int effect=NO_EFFECT;
-
+int effect=3;
+float hue_shift=0;
 OpenCV opencv=null;
 
 
 void setup() {
   size(640, 480);
-
-  String[] cameras = Capture.list();
-
-  if (cameras.length == 0) {
-    println("There are no cameras available for capture.");
-    exit();
-  } else {
-    println("Available cameras:");
-    for (int i = 0; i < cameras.length; i++) {
-      println(cameras[i]);
-    }
-    
-    // The camera can be initialized directly using an 
-    // element from the array returned by list():
-    cam = new Capture(this, cameras[3]);
-    cam.start();
-    
-  }
+  cam = new Movie(this, "./sample.mp4");
+  // You can download a sample mp4 from 
+  // https://drive.google.com/file/d/1F2plrz0jfmjITTVhP66BHdb7Fw961S1E/view?usp=sharing
+  // and place it in the data folder
+  cam.loop();
+  
   
 }
 
-void copy2img(Capture camera, PImage img) {
+void copy2img(Movie camera, PImage img) {
   img.loadPixels();
   for (int i=0; i<camera.width*camera.height; i++) {
     img.pixels[i]=camera.pixels[i];
   }
   img.updatePixels();
+  img.resize(640, 480); // comment this line if you don't need to resize it
 }
 
 void copy_img(PImage src, PImage dst) {
@@ -90,8 +67,18 @@ void effectDiffFrames(PImage img){
   
 }
 void changeColors(PImage img){
-  /* your code here*/
-  ;
+  img.loadPixels();
+  float h, s, b;
+  colorMode(HSB, 255);
+  for(int i=0; i<img.pixels.length; i++){
+    h = hue(img.pixels[i]);
+    s = saturation(img.pixels[i]);
+    b = brightness(img.pixels[i]);
+    img.pixels[i]=color((h+hue_shift)%255, s, b);
+  }
+  hue_shift+=1;
+  img.updatePixels();
+  colorMode(RGB, 255);
   
 }
 int max_M=0;
@@ -100,7 +87,8 @@ void opticalFlow(PImage img){
   opencv.loadImage(img);
   opencv.calculateOpticalFlow();
   int grid_size=10;
-  int half_grid=5;
+  int half_grid=grid_size/2;
+  float sqrt_grid=(float)Math.sqrt(half_grid);
   int c_x=0;
   int c_y=0;
   PVector aveFlow;
@@ -113,8 +101,8 @@ void opticalFlow(PImage img){
        aveFlow = opencv.getAverageFlowInRegion(w, h, grid_size, grid_size);
        c_x=w+half_grid;
        c_y=h+half_grid;
-       
-       line(c_x, c_y, c_x+min(aveFlow.x*half_grid, half_grid), c_y+min(aveFlow.y*half_grid, half_grid));
+       if(aveFlow.x + aveFlow.y > 5) // comment this if you want to view every optical flow
+          line(c_x, c_y, c_x+min(aveFlow.x*half_grid, sqrt_grid), c_y+min(aveFlow.y*half_grid, sqrt_grid));
     }
   }
 }
@@ -123,7 +111,7 @@ void draw() {
   if (! cam.available()) {return;}
   cam.read();
   if(opencv ==null){
-    opencv = new OpenCV(this, cam.width, cam.height);
+    opencv = new OpenCV(this, 2*cam.width, 2*cam.height);
   }
   PImage img=createImage(cam.width,cam.height,RGB);
   copy2img(cam, img);
