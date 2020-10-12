@@ -30,9 +30,11 @@ void sendEffect(float cutoff, float vibrato){
     oscP5.send(effect, ip_port);
 }
 PVector computeDragForce(AgentMover mover){
-
   PVector dragForce=mover.velocity.copy();
-  /* your code here */
+  float mag2 = mover.velocity.mag();
+  mag2=mag2*mag2;
+  dragForce.normalize();
+  dragForce.mult(-0.5*C_d*rho*area*mag2);
   return dragForce;
 }
 
@@ -41,9 +43,7 @@ void draw(){
   dragForce = computeDragForce(mover);
   mover.applyForce(dragForce);
   mover.update();
-  /* remove the code
   mover.computeEffect();
   sendEffect(mover.cutoff, mover.vibrato);
-  */
   mover.draw();
 }

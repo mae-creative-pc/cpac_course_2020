@@ -33,7 +33,7 @@ y_beats,sample_beats=utils.beats_to_sample(beats, y, sr=SR)
 # %% See if beats are correct
 plt.figure()
 plt.plot(t, y, label="y")
-plt.scatter(t[sample_beats], y[sample_beats], label="beats")
+plt.scatter(t[sample_beats], y[sample_beats], label="beats", color="red")
 plt.xlim([0, 5])
 plt.xlabel("Time [s]")
 plt.legend()

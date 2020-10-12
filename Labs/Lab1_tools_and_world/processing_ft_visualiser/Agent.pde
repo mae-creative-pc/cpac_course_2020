@@ -5,47 +5,51 @@ int SMOOTHING_WINDOW = 10;
 int MARGIN;
 
 float compute_flatness(FFT fft, float sum_of_spectrum){   
-  /* your code here*/
-  float flatness= random(-5,5);
+  // using several products will get overflow;
+  // so instead of computing the harmonic mean, 
+  // we compute the exponential of the average of the logarithms
+   float sum_of_logs = 0;    
+   float flatness;
+   for(int i = 0; i < fft.specSize(); i++)
+   {
+     sum_of_logs += log(fft.getBand(i));      
+   }
+   flatness = exp(sum_of_logs/fft.specSize()) / 
+                 (0.000001+sum_of_spectrum/fft.specSize());
    return flatness;
 }
 
 float compute_centroid(FFT fft, float sum_of_spectrum, 
                                         float[] freqs){
-  // float centroid=random(-5,5);
-   float sum = 0;
-   for (int i = 0; i < fft.specSize(); i++ )
-   {
-     sum += freqs[i]*abs(fft.getBand(i));
-   }
-   float centroid= sum / sum_of_spectrum;
-   return centroid;
-   
+   float centroid=0;
+    for(int i = 0; i < fft.specSize(); i++){
+      centroid += freqs[i]*fft.getBand(i);
+    }
+    return centroid/(0.00001+sum_of_spectrum);
 }
 
 float compute_spread(FFT fft, float centroid, float sum_of_bands, float[] freqs){
-  float spread=random(-5,5);
-
-  float num = 0;
-  for (int i = 0; i < fft.specSize(); i++) {
-      num += pow(freqs[i] - centroid, 2) * fft.getBand(i);
+  float spread=0;
+  for (int i=0; i<fft.specSize(); i++){
+     spread+= pow(freqs[i]-centroid,2)*fft.getBand(i);
   }
-  return num / sum_of_bands;
+  return sqrt(spread/(0.000001+sum_of_bands));
 }
 
 float compute_skewness(FFT fft, float centroid, float spread, float[] freqs){
-  //float skewness=random(-5,5);
-  float num = 0;
-  for (int i = 0; i < fft.specSize(); i++) {
-    num += pow(freqs[i] - centroid, 3) * fft.getBand(i);
+  float skewness=0;
+  for (int i=0; i<fft.specSize(); i++){
+     skewness+= pow(freqs[i]-centroid,3)*fft.getBand(i);
   }
-  return num / (0.0001+fft.specSize() * pow(spread, 3));  
+  return skewness/(0.00001+fft.specSize()*pow(spread,3));
 }
 
 float compute_entropy(FFT fft){
-  float entropy =random(-5,5);
-  /* your code here*/
-  return entropy;
+  float entropy =0;
+  for (int i=1; i<fft.specSize(); i++){
+     entropy+= fft.getBand(i)*log(0.00001+fft.getBand(i));
+  }
+  return entropy/log(fft.specSize());
 }
 
 float compute_sum_of_spectrum(FFT fft){
@@ -81,6 +85,13 @@ float[] compute_peak_band_and_freq(FFT fft, float[] freqs){
   return peak_band_freq;
 }
 
+float get_average(float[] buffer){
+  float average=0;
+  for(int i=0; i<buffer.length; i++){
+      average+=buffer[i];
+  }
+  return average/buffer.length;
+}
 float compute_energy(FFT fft) {    
   float energy = 0;
   for(int i = 0; i < fft.specSize(); i++){
@@ -132,7 +143,7 @@ class AgentFeature {
   }
   float smooth_filter(float old_value, float new_value){
     /* Try to implement a smoothing filter using this.lambda_smooth*/
-    return new_value;
+    return this.lambda_smooth*new_value+(1-this.lambda_smooth)*old_value;
   }
   void reasoning(AudioBuffer mix){
      this.fft.forward(mix);

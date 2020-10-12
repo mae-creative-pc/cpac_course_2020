@@ -21,8 +21,10 @@ class AgentMover{
     this.acceleration.mult(0);
   }
   void computeEffect(float dist){
-    /* your code here */
-    
+    float vibrato= constrain(this.position.x/width -0.5, -0.5, 0.5);
+    this.vibrato=alpha* vibrato + (1-alpha)*this.vibrato;
+    float cutoff=map(dist, dist_min, dist_max, 0, 1.);
+    this.cutoff= alpha* cutoff +(1-alpha)*this.cutoff;
   }
   void applyForce(PVector force){    
     PVector f = force.copy();

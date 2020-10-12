@@ -15,16 +15,20 @@ class AgentMover{
   }
   void update(){    
     PVector delta = new PVector(mouseX, mouseY);
-    /* your code */
+    delta.sub(this.position);
+    delta.normalize();
+    delta.mult(CONSTANT_ACC);
+    this.acceleration = delta;
     
     this.velocity.add(this.acceleration);
     this.velocity.limit(LIMIT_VELOCITY);
     this.position.add(this.velocity);
   }
   void computeEffect(){
-    /* your code here */    
-    this.vibrato=0; // your code here    
-    this.cutoff= 0; //your code here
+    float vibrato= constrain(this.position.x/width -0.5, -0.5, 0.5);
+    this.vibrato=alpha* vibrato + (1-alpha)*this.vibrato;
+    float cutoff=constrain((this.position.y/height),0,1);
+    this.cutoff= alpha* cutoff +(1-alpha)*this.cutoff;
    
   }
   void draw(){

@@ -81,17 +81,27 @@ void effectDiffFrames(PImage img){
   }
   diff_frame.loadPixels();
   old_frame.loadPixels();  
-  
-  /* your code here*/
-   //<>//
+  for (int i=0; i<cam.width*cam.height; i++) {
+    float[] old_colors=getColors(old_frame.pixels[i]); //<>//
+    float[] colors=getColors(img.pixels[i]);
+    diff_frame.pixels[i]=color(abs(colors[0]-old_colors[0]), 
+                                abs(colors[1]-old_colors[1]), 
+                                abs(colors[2]-old_colors[2]));
+    
+  }
   diff_frame.updatePixels();
   copy_img(img, old_frame);
   copy_img(diff_frame, img);
   
 }
 void changeColors(PImage img){
-  /* your code here*/
-  ;
+  img.loadPixels();
+  for (int i=0; i<img.width*img.height; i++) {
+    img.pixels[i]=color(blue(img.pixels[i]),
+                        red(img.pixels[i]),
+                        green(img.pixels[i]));
+  }
+  img.updatePixels();
   
 }
 int max_M=0;
