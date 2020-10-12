@@ -2,7 +2,9 @@ ParticleSystem ps;
 int Nparticles=1000;
 PImage img;
 
-MicInput mic;
+AudioIn audio;
+
+boolean song_mic=true;
 void setup(){
   size(1280,720, P2D);
   PVector origin=new PVector(0.75*width, height);
@@ -11,17 +13,20 @@ void setup(){
     ps.addParticle();
   }
   img=loadImage("texture.png");
-  mic=new MicInput();
+  audio=new AudioIn(song_mic, this);
   
   background(0);
+}
+
+PVector computeWind(){
+  float energy= audio.getEnergy();
+  PVector wind=new PVector(-energy, -2); 
+  return wind;
 }
 
 void draw(){
   blendMode(ADD);
   background(0);
-  PVector wind= new PVector(map(mouseX, 0, width, -.2, .2),0);
-  float energy= mic.getEnergy();
-  println(energy);
-  ps.action(new PVector(energy*random(-.4,-.1),energy*random(-.5,-.1)));  
-  //ps.action(wind);
+  PVector wind= computeWind();
+  ps.action(wind);
 }
