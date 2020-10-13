@@ -142,3 +142,4 @@ cpac-venv/share/*
 binary/*
 Labs/Lab1_tools_and_world/human_readable_descriptors/*.mp3
 Labs/Lab1_tools_and_world/human_readable_descriptors/tmpdir/*
+my_workspace.code-workspace
