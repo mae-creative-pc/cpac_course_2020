@@ -1,4 +1,4 @@
-PVector mu=new PVector(0,-1);
+PVector mu=new PVector(0,-5);
 float std=.3;
 
 class ParticleSystem{

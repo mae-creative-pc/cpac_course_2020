@@ -20,7 +20,7 @@ void setup(){
 
 PVector computeWind(){
   float energy= audio.getEnergy();
-  PVector wind=new PVector(-energy, -2); 
+  PVector wind=new PVector(-energy, 0); 
   return wind;
 }
 
