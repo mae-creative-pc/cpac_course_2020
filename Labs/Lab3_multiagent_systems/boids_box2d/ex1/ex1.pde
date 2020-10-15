@@ -3,8 +3,6 @@ import org.jbox2d.collision.shapes.*;
 import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.*;
-import processing.sound.*;
-
 
 int RADIUS_BOID=30;
 float SCALEFORCE=100000;
@@ -48,7 +46,6 @@ void setup() {
   box2d = new Box2DProcessing(this);
   box2d.createWorld();
   box2d.setGravity(0, 0);
-  box2d.listenForCollisions();
   boids=new ArrayList<Boid>();
   boundaries=new Boundaries(box2d, width, height);
   bd= new BodyDef();
@@ -57,30 +54,22 @@ void setup() {
   cs  = new CircleShape();
   cs.m_radius = P2W(RADIUS_BOID/2);
   bd.linearDamping=0;
-  bd.angularDamping=0;
-  
   
 }
 void mousePressed() {
  if(mouseButton==LEFT){//insert a new box
     Boid b = new Boid(box2d, cs, bd, P2W(mouseX, mouseY));
     boids.add(b);     
-    Vec2 force=new Vec2(random(-1,1), random(-1,1));
-    b.applyForce(force.mulLocal(10000));
+    /* your code*/
+    
   }
   if(mouseButton==RIGHT){
     Vec2 force;
     for(Boid b: boids){
-      force=new Vec2(random(-1,1), random(-1,1));
-      b.applyForce(force.mulLocal(10000));
-      b.applyForce(new Vec2(random(-3,3), random(-3,3)));
+      /* your code*/
     }
   }
 }
-
-
-
-
  
 void draw() {
   fill(0,50);
