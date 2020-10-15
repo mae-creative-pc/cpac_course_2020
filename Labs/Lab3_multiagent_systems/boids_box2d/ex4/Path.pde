@@ -1,23 +1,18 @@
 class Path{
     Vec2[] pointsP, pointsW;
     int num_points;
-    float alpha=0.4;
-    float t=0;
-    float[] angles;
+    float alpha=0.4;   
     Path(int num_points, float min_fact, float max_fact){
       this.num_points=num_points;
       this.pointsW = new Vec2[this.num_points];
-      this.pointsP = new Vec2[this.num_points];
-      this.angles=new float[this.num_points];
-       
-      
+      this.pointsP = new Vec2[this.num_points];    
+      float angle;      
       float fact=0.5*(min_fact+max_fact);
       for(int i=0; i<this.num_points; i++){
-        this.angles[i]=map(i, 0, this.num_points, 0, 2*PI);
+        angle=map(i, 0, this.num_points, 0, 2*PI);
         fact=this.alpha*random(min_fact, max_fact)+(1-alpha)*fact;
-        this.pointsP[i]=new Vec2(width*(0.5+fact*cos(this.angles[i])), height*(0.5+fact*sin(this.angles[i])));
-        this.pointsW[i]=P2W(this.pointsP[i]);
-        
+        this.pointsP[i]=new Vec2(width*(0.5+fact*cos(angle)), height*(0.5+fact*sin(angle)));
+        this.pointsW[i]=P2W(this.pointsP[i]);        
       } 
     }
     
@@ -36,20 +31,6 @@ class Path{
     }
     int closestTarget(Vec2 posW){
       int argmin=-1;
-      /*
-      float angle=random(0, 2*PI);;
-      if(posW.x==0 && posW.y>0){angle=PI/2;}
-      else if(posW.x==0 && posW.y<0){angle=-PI/2;}
-      else if(posW.x>0){ angle = atan(posW.y/posW.x);}
-      else if(posW.x<0){ angle = atan(posW.y/posW.x)+PI;}
-      angle=(angle+4*PI)%(2*PI);
-      println(posW, angle/PI*180);
-      
-      for(int i=1; i<this.num_points; i++){
-        if(angle>=this.angles[i-1] && angle<=this.angles[i]) {return i;}        
-      }
-      return 0;
-      */
        float min_dist=P2W(width+height);
        
        float dist;
