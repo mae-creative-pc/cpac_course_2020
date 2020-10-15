@@ -60,14 +60,14 @@ if __name__=="__main__":
     for octave in range(1,4):
         freqs.extend((freqs_base*octave).tolist())
     
-    env= create_env_adsr()
+    #env= create_env_adsr()
+    env=create_env_cos()
     t= np.arange(0, env.size)/sr    
     
     plt.plot(t, env)
     np.random.shuffle(freqs)
     num_harmonics=1+int(np.floor(sr/2 / max(freqs)))
     print(num_harmonics)
-    #harmonics=[0.5, 0.25, 0.125, 0.06, 0.03, 0.015]
     for f, freq in enumerate(freqs):
         fn_out="sounds/%.2fHz.wav"%(freq)        
         sample=np.cos(2*np.pi*t*freq)
