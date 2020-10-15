@@ -89,15 +89,9 @@ void beginContact(Contact cp) {
     b1.play();
     b1.changeColor();
   }
-  else{
-  //  b2.bounce();
-  }
   if (b2!=null) {  
     b2.play();
     b2.changeColor();
-  }
-  else{
-  //   b1.bounce();
   }
 }
 
