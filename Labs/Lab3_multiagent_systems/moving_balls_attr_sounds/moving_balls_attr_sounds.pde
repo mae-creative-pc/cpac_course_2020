@@ -39,7 +39,7 @@ PVector computeGravityForce(AgentMover mover){
   PVector attr_force=pos_attractor.copy();
   attr_force.sub(mover.position);
   float dist=attr_force.mag();
-  dist=constrain(dist, dist_min,dist_max);
+  dist=constrain(dist, dist_min, dist_max);
   attr_force.normalize(); 
   attr_force.mult(mover.mass*mass_attractor/(dist*dist));
   return attr_force;
