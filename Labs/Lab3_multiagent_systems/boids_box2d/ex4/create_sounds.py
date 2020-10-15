@@ -8,47 +8,17 @@ freqs_base = 2*np.array([130.81, 146.83,164.81, 196.00, 220.00])
 
 sr=16000 # samplerate
 
-attack_time=0.01
-decay_time=0.02
-sustain_time=0.
-release_time=0.02
-
 open_close_time=0.1
 
 DUR = 0.2 # seconds
-
-def create_env_adsr():
-    dur=max(DUR, 1.01*(attack_time+decay_time+sustain_time+release_time))
-    env=np.zeros((int(dur*sr),)) #envelope
-    attack=np.linspace(0,1,int(attack_time*sr))
-    attack=np.exp(attack)
-    attack-=np.min(attack)
-    attack/=np.max(attack)
-    
-    decay=np.linspace(1,0,int(decay_time*sr))
-    decay=np.exp(decay)
-    decay-=np.min(decay)
-    decay/=2*np.max(decay)
-    decay+=0.5
-
-    sustain=0.5*np.ones(int(sustain_time*sr))
-    
-    release=np.linspace(1,0,int(release_time*sr))
-    release=np.exp(release)
-    release-=np.min(release)
-    release/=2*np.max(release)
-    
-    adsr=np.concatenate([attack, decay, sustain, release])
-    adsr+=np.random.randn(adsr.size)*0.001
-    env[:adsr.size]=np.clip(adsr,0,1)
-    return env
+Osc="saw"
 
 def create_env_cos():
     
     dur=max(DUR,1.01*open_close_time)
     env=np.zeros((int(dur*sr),)) #envelope
     N=int(sr*open_close_time)
-    print(N)
+    
     env[:N]=np.sin(np.linspace(0, np.pi, N))
     return env
 
@@ -60,24 +30,30 @@ if __name__=="__main__":
     for octave in range(1,4):
         freqs.extend((freqs_base*octave).tolist())
     
-    #env= create_env_adsr()
     env=create_env_cos()
     t= np.arange(0, env.size)/sr    
     
-    plt.plot(t, env)
-    np.random.shuffle(freqs)
-    num_harmonics=1+int(np.floor(sr/2 / max(freqs)))
-    print(num_harmonics)
+    #plt.plot(t, env)
+    
+    
     for f, freq in enumerate(freqs):
-        fn_out="sounds/%.2fHz.wav"%(freq)        
-        sample=np.cos(2*np.pi*t*freq)
-        #for h, harm in enumerate(harmonics):            
-        for h in range(2,num_harmonics):
-            amp=1/(2**(2*(h-1)))
-            rand_phase=2*np.pi*np.random.randint(10000)/10000.
-            sample+=amp*np.cos(2*np.pi*t*h*freq+rand_phase)
+        fn_out="sounds/%.2fHz.wav"%(freq)               
+        if Osc=="square":
+            T=int(sr/freq)
+            square=np.zeros((T,))-1
+            square[int(T/4):int(-T/4)]=1
+            sample=np.tile(square, (int(np.ceil(sr*DUR/T)),))
+            sample=sample[:int(sr*DUR)]
+            
+        elif Osc=="saw":
+            T=int(sr/freq)
+            saw=np.zeros((T,))
+            saw[:int(T/2)]=np.linspace(-1,1,int(T/2))
+            saw[int(T/2):]=np.linspace(1,-1,T-int(T/2))            
+            sample=np.tile(saw, (int(np.ceil(sr*DUR/T)),))
+            sample=sample[:int(sr*DUR)]
+            
         sample*=env
-
         sf.write(fn_out, 0.707*sample/np.max(np.abs(sample)), sr)
-
+    
 # %%
