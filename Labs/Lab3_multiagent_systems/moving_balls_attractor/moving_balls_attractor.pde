@@ -38,8 +38,6 @@ void draw(){
   PVector force;
   for(int i=0; i<N_AGENTS; i++){
     force = computeGravityForce(movers[i]);
-    movers[i].applyForce(force);
-    movers[i].update();
-    movers[i].draw();
+    /* your code*/
   }
 }

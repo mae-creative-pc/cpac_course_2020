@@ -30,19 +30,14 @@ class Boid{
     }
     void draw(){
         Vec2 posPixel=this.box2d.getBodyPixelCoord(this.body);
-        
-        fill(lerpColor(this.contactColor, this.defColor, map(this.time_index, 0, this.time_to_color,0,1)));
-        stroke(0);
-        strokeWeight(0);        
-        ellipse(posPixel.x, posPixel.y, RADIUS_BOID, RADIUS_BOID);  
-        this.time_index=min(this.time_index+1, this.time_to_color);
+        /* your code here*/        
     }
 
     void changeColor(){
-        this.time_index=0;
+      /* your code here; you also need to modify draw()*/
     }
     void play(){
-     if(! this.sample.isPlaying())      this.sample.play();    
+      /* your code here*/    
     }
     void update(ArrayList<Boid> boids){
       Vec2 myPosW=this.body.getPosition();

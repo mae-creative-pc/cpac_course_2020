@@ -18,10 +18,10 @@ void setup(){
   background(0);
 }
 
-PVector computeWind(){
+PVector computeWind(){  
   float energy= audio.getEnergy();
-  PVector wind=new PVector(-energy, 0); 
-  return wind;
+  /* your code here */
+  return new PVector(0,0);
 }
 
 void draw(){
