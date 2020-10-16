@@ -34,7 +34,6 @@ class ParticleSystem{
          particles.remove(i);
          this.addParticle();
       }
-    
     }
   }
 }
