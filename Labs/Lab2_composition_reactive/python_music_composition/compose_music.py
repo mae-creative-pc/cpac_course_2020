@@ -82,10 +82,10 @@ if __name__=="__main__":
 
 	n_agents=1
 	agents=[_ for _ in range(n_agents)]
-	#agents[0] = Agent(57120, "/note", 60, simple_next)
+	agents[0] = Agent(57120, "/note_effect", 60, simple_next)
+	#agents[0] = Agent(57120, "/note_effect", 60, gingerbread)
 	agents[0] = Agent(57120, "/note_effect", 60, gingerbread_randomness)
-	#agents[0] = Agent(57120, "/note", 60, gingerbread)
-
+	
 	input("Press any key to start \n")
 	for agent in agents:
 		agent.start()
