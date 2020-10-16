@@ -30,7 +30,7 @@ PVector computeGravityForce(AgentMover mover){
     
 void draw(){
   rectMode(CORNER);
-  fill(0,20);
+  fill(0,40);
   rect(0,0,width, height);
   fill(200, 0, 200, 40);
   ellipse(pos_attractor.x, pos_attractor.y, 
@@ -38,6 +38,8 @@ void draw(){
   PVector force;
   for(int i=0; i<N_AGENTS; i++){
     force = computeGravityForce(movers[i]);
-    /* your code*/
+    movers[i].applyForce(force);
+    movers[i].update();
+    movers[i].draw();
   }
 }

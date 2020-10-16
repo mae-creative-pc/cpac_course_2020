@@ -2,7 +2,7 @@
 float alpha=0.1;  
 float dist_min=50;
 float dist_max=100;
-
+float vel_max=600;
 class AgentMover{
   PVector position, velocity, acceleration;
   float mass, radius;
@@ -17,6 +17,7 @@ class AgentMover{
   }
   void update(){    
     this.velocity.add(this.acceleration);
+    this.velocity.limit(vel_max);
     this.position.add(this.velocity);
     this.acceleration.mult(0);
   }
