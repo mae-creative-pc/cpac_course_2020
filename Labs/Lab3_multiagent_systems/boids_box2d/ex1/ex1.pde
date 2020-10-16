@@ -10,7 +10,6 @@ float SCALEFORCE=100000;
 Box2DProcessing box2d;
 BodyDef bd;
 Boundaries boundaries;
-PolygonShape ps;
 CircleShape cs;
 ArrayList<Boid> boids;
 
@@ -50,23 +49,23 @@ void setup() {
   boundaries=new Boundaries(box2d, width, height);
   bd= new BodyDef();
   bd.type= BodyType.DYNAMIC;
-  ps= new PolygonShape();
   cs  = new CircleShape();
   cs.m_radius = P2W(RADIUS_BOID/2);
   bd.linearDamping=0;
   
 }
 void mousePressed() {
- if(mouseButton==LEFT){//insert a new box
+ if(mouseButton==LEFT){//insert a new boid
     Boid b = new Boid(box2d, cs, bd, P2W(mouseX, mouseY));
-    boids.add(b);     
-    /* your code*/
-    
+    boids.add(b);
+    Vec2 force=new Vec2(random(-1,1),random(-1,1));
+    b.applyForce(force.mul(SCALEFORCE));    
   }
   if(mouseButton==RIGHT){
     Vec2 force;
     for(Boid b: boids){
-      /* your code*/
+      force=new Vec2(random(-1,1),random(-1,1));
+      b.applyForce(force.mul(SCALEFORCE));
     }
   }
 }

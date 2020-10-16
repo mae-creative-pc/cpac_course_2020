@@ -24,8 +24,6 @@ class Boid{
         stroke(0);
         strokeWeight(0);        
         ellipse(posPixel.x, posPixel.y, RADIUS_BOID, RADIUS_BOID);  
-
-        
     }
     void kill(){
         this.box2d.destroyBody(this.body);
