@@ -5,8 +5,8 @@ import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.*;
 import processing.sound.*;
 
-boolean DRAW_PATH=true;
-boolean DRAW_ANCHORS=true;
+boolean DRAW_PATH=false;
+boolean DRAW_ANCHORS=false;
 int RADIUS_BOID=30;
 float SCALEFORCE=100000;
 float DIST_TO_NEXT=50;
@@ -89,9 +89,15 @@ void beginContact(Contact cp) {
     b1.play();
     b1.changeColor();
   }
+  else{
+  //  b2.bounce();
+  }
   if (b2!=null) {  
     b2.play();
     b2.changeColor();
+  }
+  else{
+  //   b1.bounce();
   }
 }
 
