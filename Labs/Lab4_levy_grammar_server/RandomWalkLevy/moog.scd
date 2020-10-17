@@ -2,7 +2,7 @@
 (
 SynthDef("moog", {
 	arg vibr=0, cutoff=0.5, freq=60, amp=0;
-	var osc1, osc2, osc3, f0, vib_int, cutoff_freq, fil_osc, freq;
+	var osc1, osc2, osc3, f0, vib_int, cutoff_freq, fil_osc;
 
 	//freq=midicps(midinote);
 	f0=exp(vibr*0.035)*freq;
@@ -26,7 +26,7 @@ SynthDef("moog", {
 
 // setting the note
 (
-~instr.set(\midinote, 62, \amp, 1);
+~instr.set(\freq, 62, \amp, 1, \vibr, 0.9);
 )
 
 //setting the cutoff
@@ -35,7 +35,7 @@ SynthDef("moog", {
 )
 
 (
-~instr.set(\amp, 0);
+~instr.set(\amp, 0)
 )
 
 // Use this command to start the server
@@ -53,9 +53,9 @@ OSCdef('OSCreceiver',
 		freq=msg[1];
 		amp=msg[2];
 		cutoff=msg[3];
-		vibr=msg[4]
+		vibr=msg[4];
 
-		~instr.set(\freq,note, \amp,amp);
+		~instr.set(\freq,freq, \amp,amp, \cutoff, cutoff, \vibr, vibr);
 
 	},
 	"/note_effect",);
