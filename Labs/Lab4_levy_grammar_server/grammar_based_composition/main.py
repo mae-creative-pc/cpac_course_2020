@@ -120,7 +120,7 @@ def write_mix(compositions, fn_out, repeat=1, gains=None):
     sf.write(fn_out, sequence_to_write, compositions[0].sr)
 
 if __name__=="__main__":
-    EX=6
+    EX=7
     Cs=[]
     C=None
     NUM_MEASURES=8
@@ -157,7 +157,7 @@ if __name__=="__main__":
             "tr_hrk_scratch_02_a.wav": {"grammar": [slow_grammar], "gain": 1}
         }
         N_TRACKS=len(samples)
-        gains:[]
+        gains=[]
         for s in samples:            
             print("Generating sequence for %s"%s)
             G=Grammar_Sequence(random_elem_in_list(samples[s]["grammar"]))
