@@ -8,13 +8,13 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 from your_code import *
 
 note_durs={"h":0.5, # half-measure
-             "q":0.25, # quarter-measure
-             "o":0.125, # octave-measure
-             "w": 1, # whole measure
-             "tq": 0.5/3, # triplet of quarter
-             "th": 1/3, # triplet of half-notes
-             "to": 0.25/3 # triplets of octaves
-             }
+           "q":0.25, # quarter-measure
+           "o":0.125, # octave-measure
+           "w": 1, # whole measure
+           "tq": 0.5/3, # triplet of quarter
+           "th": 1/3, # triplet of half-notes
+           "to": 0.25/3 # triplets of octaves
+}
 for n in list(note_durs.keys()):# so its computed just once
     note_durs["$"+n]=note_durs[n] # $ + smth = pause
 
@@ -123,7 +123,8 @@ if __name__=="__main__":
     EX=6
     Cs=[]
     C=None
-    START_SEQUENCE="M"*8# 16 beats
+    NUM_MEASURES=8
+    START_SEQUENCE="M"*NUM_BEATS# 16 beats
     MONO_COMPOSITION=EX<7
     if EX==1:
         G=Grammar_Sequence(basic_grammar)        
