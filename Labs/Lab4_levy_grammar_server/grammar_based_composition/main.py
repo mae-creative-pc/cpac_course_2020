@@ -22,21 +22,10 @@ word_dur={"h":0.5, # half-measure
 }
 
 # write_mix
-def write_mix(compositions, fn_out, repeat=1, gains=None):
-    if gains is None:
-        gains=[1/len(compositions) for _ in compositions]
-    sequence_to_write=gains[0]*compositions[0].write(repeat=repeat, write=False)
-    for i in range(1, len(compositions)):
-        sequence_to_add=gains[i]*compositions[i].write(repeat=repeat, write=False)
-        N_max=max(sequence_to_write.size, sequence_to_add.size)
-        sequence_to_write=np.concatenate([sequence_to_write, 
-                                          np.zeros((N_max-sequence_to_write.size))])+\
-                          np.concatenate([sequence_to_add, 
-                                          np.zeros((N_max-sequence_to_add.size))])
-                            
-    if np.max(np.abs(sequence_to_write))>1:
-        sequence_to_write=0.707*sequence_to_write/np.max(np.abs(sequence_to_write))
-    sf.write(fn_out, sequence_to_write, compositions[0].sr)
+def write_mix(Cs, gains=None, fn_out="out.wav"):
+    # your code                            
+    track=0.707*track/np.max(np.abs(track))
+    sf.write(fn_out, track, Cs[0].sr)
 
 # %% Grammar Sequence
 class Grammar_Sequence:
@@ -137,42 +126,26 @@ if __name__=="__main__":
         fn_out="octave_composition.wav"
     elif EX==3:
         G=Grammar_Sequence(triplet_grammar)
-        fn_out="triplets_composition.wav"
+        fn_out="triplet_composition.wav"
     elif EX==4:
-        G=Grammar_Sequence(syncopated_grammar)
-        fn_out="syncop_composition.wav"
-    elif EX==5:
         G=Grammar_Sequence(slow_grammar)
         fn_out="slow_composition.wav"
+    elif EX==5:        
+        G=Grammar_Sequence(upbeat_grammar)        
+        fn_out="upbeat_composition.wav"
     elif EX==6:
-        START_SEQUENCE="q$oo$qq$qqq$q"*4
-        G=Grammar_Sequence(octave_grammar)
+        G=Grammar_Sequence(clave_grammar)
         fn_out="clave_composition.wav"
     elif EX==7:
-        # ... your code here
-        Gs=[]
-        Cs=[]
-        SR=16000
-        samples={
-            "D4cymb19.wav": {"grammar": [triplet_grammar], "gain": 1},
-            "Rimsd1.wav": {"grammar": [octave_grammar], "gain": 1},
-            "fkick_02a.wav": {"grammar": [basic_grammar], "gain": 1},
-            "snar_07a.wav": {"grammar": [triplet_grammar], "gain": 1},
-            "tr_hrk_bd_02_a.wav": {"grammar": [slow_grammar], "gain": 1},
-            "tr_hrk_scratch_02_a.wav": {"grammar": [slow_grammar], "gain": 1}
-        }
-        N_TRACKS=len(samples)
-        gains=[]
-        for s in samples:            
-            print("Generating sequence for %s"%s)
-            G=Grammar_Sequence(random_elem_in_list(samples[s]["grammar"]))
-            gains.append(samples[s]["gain"])
-            C=Composer("sounds/"+s, sr=SR)
-            G.create_sequence(START_SEQUENCE)
-            C.create_sequence(G.sequence)        
-            Gs.append(G)
-            Cs.append(C)
-            
+        samples=[]
+        grammars=[]# your grammars
+        gains = [] #your gains
+	    fn_out="multitrack.wav"
+        Gs=[]  #list of Grammar_Sequence
+        Cs=[]  #list of Composer
+        SR=16000 # use a common sr
+        # your code...
+
     if MONO_COMPOSITION:
         seqs=G.create_sequence(START_SEQUENCE)
         print("\n".join(seqs), "\nFinal sequence: ", G.sequence)    
