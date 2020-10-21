@@ -1,3 +1,4 @@
+# %% Import libraries
 import numpy as np
 import random
 import os
@@ -5,22 +6,39 @@ import re
 import librosa
 import soundfile as sf
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-from your_code import *
-
-note_durs={"h":0.5, # half-measure
-           "q":0.25, # quarter-measure
-           "o":0.125, # octave-measure
-           "w": 1, # whole measure
-           "tq": 0.5/3, # triplet of quarter
-           "th": 1/3, # triplet of half-notes
-           "to": 0.25/3 # triplets of octaves
-}
-for n in list(note_durs.keys()):# so its computed just once
-    note_durs["$"+n]=note_durs[n] # $ + smth = pause
-
 def random_elem_in_list(list_of_elems):
     return list_of_elems[random.randint(0,len(list_of_elems)-1)]
+# %% YOUR CODE HERE
 
+# ==== GRAMMARS
+basic_grammar={
+    "S":["M", "SM"],
+    "M": ["HH"],    
+    "H": ["h", "qq"],
+}
+# === Words to duration ===
+word_dur={"h":0.5, # half-measure
+           "q":0.25, # quarter-measure
+}
+
+# write_mix
+def write_mix(compositions, fn_out, repeat=1, gains=None):
+    if gains is None:
+        gains=[1/len(compositions) for _ in compositions]
+    sequence_to_write=gains[0]*compositions[0].write(repeat=repeat, write=False)
+    for i in range(1, len(compositions)):
+        sequence_to_add=gains[i]*compositions[i].write(repeat=repeat, write=False)
+        N_max=max(sequence_to_write.size, sequence_to_add.size)
+        sequence_to_write=np.concatenate([sequence_to_write, 
+                                          np.zeros((N_max-sequence_to_write.size))])+\
+                          np.concatenate([sequence_to_add, 
+                                          np.zeros((N_max-sequence_to_add.size))])
+                            
+    if np.max(np.abs(sequence_to_write))>1:
+        sequence_to_write=0.707*sequence_to_write/np.max(np.abs(sequence_to_write))
+    sf.write(fn_out, sequence_to_write, compositions[0].sr)
+
+# %% Grammar Sequence
 class Grammar_Sequence:
     def __init__(self, grammar):
         self.grammar=grammar
@@ -49,7 +67,7 @@ class Grammar_Sequence:
             self.convert_sequence()
             sequence_transformation.append(self.sequence)
         return sequence_transformation
-
+# %% Composer
 class Composer():
     def __init__(self, fn, sr=-1, BPM=120):
         if sr==-1:
@@ -63,32 +81,32 @@ class Composer():
         self.sequence=[]
     def split_sequence(self, sequence):
         k=0
-        symbol_sequence=[]
-        note_sequence=[]
+        sym_seq=[]
+        dur_seq=[]
         while k<len(sequence):
             if sequence[k] in "$t":
-                symbol=sequence[k:k+2]
-                k+=2
+                #your code
+                pass
             else:
-                symbol=sequence[k]
+                sym=sequence[k]
                 k+=1
-            symbol_sequence.append(symbol)
+            sym_seq.append(sym)
             
-            note_sequence.append(note_durs[symbol])
-        return note_sequence, symbol_sequence
-    def compute_duration(self, notes_sequence):
+            dur_seq.append(word_dur[sym])
+        return dur_seq, sym_seq
+    def compute_duration(self, dur_seq):
         duration_in_notes=0
-        for note in notes_sequence:
-            duration_in_notes+=note
+        for dur in dur_seq:
+            duration_in_notes+=dur
         return duration_in_notes        
     def create_sequence(self, sequence):
-        notes_sequence, symbol_sequence=self.split_sequence(sequence)
-        duration_in_notes=self.compute_duration(notes_sequence)
+        dur_seq, sym_seq=self.split_sequence(sequence)
+        duration_in_notes=self.compute_duration(dur_seq)
         
         duration_in_seconds=duration_in_notes*self.m_bpm
         self.sequence=np.zeros((int(duration_in_seconds*self.sr),))
         idx=0
-        for note, symbol in zip(notes_sequence, symbol_sequence):
+        for note, symbol in zip(dur_seq, sym_seq):
             if not symbol.startswith("$"):
                 if self.sequence.size > idx+self.sampleN: 
                     self.sequence[idx:idx+self.sampleN]+=self.sample
@@ -103,28 +121,13 @@ class Composer():
             sf.write(fn_out, sequence_to_write, self.sr)
         else:
             return sequence_to_write
-def write_mix(compositions, fn_out, repeat=1, gains=None):
-    if gains is None:
-        gains=[1/len(compositions) for _ in compositions]
-    sequence_to_write=gains[0]*compositions[0].write(repeat=repeat, write=False)
-    for i in range(1, len(compositions)):
-        sequence_to_add=gains[i]*compositions[i].write(repeat=repeat, write=False)
-        N_max=max(sequence_to_write.size, sequence_to_add.size)
-        sequence_to_write=np.concatenate([sequence_to_write, 
-                                          np.zeros((N_max-sequence_to_write.size))])+\
-                          np.concatenate([sequence_to_add, 
-                                          np.zeros((N_max-sequence_to_add.size))])
-                            
-    if np.max(np.abs(sequence_to_write))>1:
-        sequence_to_write=0.707*sequence_to_write/np.max(np.abs(sequence_to_write))
-    sf.write(fn_out, sequence_to_write, compositions[0].sr)
 
+# %% main script
 if __name__=="__main__":
-    EX=7
-    Cs=[]
+    EX=1
     C=None
-    NUM_MEASURES=8
-    START_SEQUENCE="M"*NUM_BEATS# 16 beats
+    NUM_M=8
+    START_SEQUENCE="M"*NUM_M
     MONO_COMPOSITION=EX<7
     if EX==1:
         G=Grammar_Sequence(basic_grammar)        
@@ -146,7 +149,9 @@ if __name__=="__main__":
         G=Grammar_Sequence(octave_grammar)
         fn_out="clave_composition.wav"
     elif EX==7:
+        # ... your code here
         Gs=[]
+        Cs=[]
         SR=16000
         samples={
             "D4cymb19.wav": {"grammar": [triplet_grammar], "gain": 1},
