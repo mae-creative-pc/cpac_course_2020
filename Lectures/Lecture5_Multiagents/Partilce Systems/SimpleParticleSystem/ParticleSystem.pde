@@ -11,15 +11,15 @@ class ParticleSystem{
     this.origin=origin.copy();
   }
   void addParticle(){
-    this.particles.add(new Particle(this.origin, 2, random(0,255)));   
+    this.particles.add(new Particle(this.origin, 3, random(0,255)));   
   }
   
   void action(){
     Particle p;
     for(int i=this.particles.size()-1; i>=0; i--){
       p=this.particles.get(i);
-      p.applyForce(new PVector(random(-0.1, 0.1), 
-                               random(-0.1,0.1)));
+      p.applyForce(new PVector(random(-0.1, 0.1), random(-0.1,0.1)));
+      //p.applyForce(new PVector(random(-0.4, 0.4), random(0.1,0.8)));
       p.action();
       p.lifespan-=0.5;
       if(p.isDead()){

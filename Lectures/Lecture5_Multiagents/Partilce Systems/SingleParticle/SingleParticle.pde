@@ -16,6 +16,3 @@ void draw() {
     //println("Particle dead!"); 
   }
 }
-
-
-
