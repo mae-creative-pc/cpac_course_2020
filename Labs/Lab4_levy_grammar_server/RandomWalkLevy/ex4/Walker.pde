@@ -20,10 +20,11 @@ class Walker {
     // your code here to draw the walker
   }
   void computeEffect(){
-     this.freq=0; // your code
+     this.freq=0;
      this.cutoff=0;     
-     this.amp = 0; //
+     this.amp = 0; 
      this.vibrato=0;
+      // your code
   }
   void update() {    
     PVector step;
