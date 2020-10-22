@@ -6,7 +6,8 @@ Flock flock;
 int Initial_num = 0;   // Initial number of flocks
 
 void setup() {
-  size(800,600);
+  //size(800,600);
+  fullScreen();
   background(0);
   flock = new Flock();
   // Add an initial set of boids into the system

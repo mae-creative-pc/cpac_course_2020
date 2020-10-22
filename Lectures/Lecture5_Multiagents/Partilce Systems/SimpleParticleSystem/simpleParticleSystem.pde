@@ -1,5 +1,5 @@
 ParticleSystem ps;
-int Nparticles=10000;
+int Nparticles=1000;
 void setup(){
   size(1280,720);
   ps=new ParticleSystem();

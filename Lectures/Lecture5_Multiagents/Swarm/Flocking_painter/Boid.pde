@@ -10,8 +10,8 @@ class Boid {
   float r;
   float maxforce;    // Maximum steering force
   float maxspeed;    // Maximum speed
-  float desiredseparation = 10.0f;
-  float align_neighbordist = 50;
+  float desiredseparation = 0.0f;
+  float align_neighbordist = 200;
   float cohesion_neighbordist = 50;
   float cohesion_paint = 50;
   

@@ -30,7 +30,7 @@ void setup() {
   p1.lock();
 
   // Make a spring connecting both Particles
-  VerletSpring2D spring=new VerletSpring2D(p1,p2,80,0.01);   //(p1,p2,len,strength)
+  VerletSpring2D spring=new VerletSpring2D(p1,p2,80,0.001);   //(p1,p2,len,strength)
 
   // Anything we make, we have to add into the physics world
   physics.addParticle(p1);
