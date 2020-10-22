@@ -1,13 +1,13 @@
 float LOW_FREQ=60;
 float HIGH_FREQ=3000;
 
-float MIN_SAT=30;
+float MIN_SAT=200;
 float BRIGHTNESS=255;
 boolean SEE_COLORS=false;
 float SEE_COLORS_ANGLE=0;
 float SEE_COLORS_RADIUS=0;
-int MONTECARLO_STESP=2;
-float SCALE_STEPS[]={0, 10, 50};
+int MONTECARLO_STEPS=1;
+float SCALE_STEPS[]={0, 50, 10};
 
 
 class Walker {
@@ -71,9 +71,9 @@ class Walker {
     this.prevPosition=this.position.copy();
     
     PVector step=new PVector(random(-1, 1), random(-1, 1));
-    step.normalize();
+    //step.normalize();
     float stepsize = montecarlo();
-    step.mult(stepsize*SCALE_STEPS[MONTECARLO_TYPE]);
+    step.mult(stepsize*SCALE_STEPS[MONTECARLO_STEPS]);
     this.position.add(step);
     if(SEE_COLORS){    
       this.position.x=width/2+SEE_COLORS_RADIUS*cos(SEE_COLORS_ANGLE);

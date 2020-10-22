@@ -5,9 +5,9 @@ OscP5 oscP5;
 NetAddress ip_port;
 int PORT = 57120;
 PVector CENTER_SCREEN;
-float ALPHA_BACKGROUND=20;
+float ALPHA_BACKGROUND=0;
 float probChanging=0.1;
-int NUM_WALKERS=1;
+int NUM_WALKERS=5;
 Walker walkers[];
 int W=0;
 void setup() {
@@ -16,9 +16,9 @@ void setup() {
   walkers= new Walker[NUM_WALKERS];
   for (int i=0; i<NUM_WALKERS; i++){
      walkers[i]= new Walker();
-     walkers[W].strokeWeight=1;
+     walkers[i].strokeWeight=3;
   }
-  walkers[W].strokeWeight=5;
+  walkers[W].strokeWeight=3;
   
   background(0);
   CENTER_SCREEN=new PVector(width/2, height/2);

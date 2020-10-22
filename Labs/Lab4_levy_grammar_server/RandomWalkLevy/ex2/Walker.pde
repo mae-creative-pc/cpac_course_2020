@@ -1,4 +1,4 @@
-float SCALE_STEPS[]={0, 10, 50}; 
+float SCALE_STEPS[]={0, 50, 10}; 
 // use it as SCALE_STEP[MONTECARLO_STEPS]
 
 
