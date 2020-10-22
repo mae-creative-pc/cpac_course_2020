@@ -142,6 +142,9 @@ cpac-venv/share/*
 binary/*
 Labs/Lab1_tools_and_world/human_readable_descriptors/*.mp3
 Labs/Lab1_tools_and_world/human_readable_descriptors/tmpdir/*
-Labs/Lab3_multiagent_systems/using_box2d/sounds/*.wav
+my_workspace.code-workspace
 Labs/Lab3_multiagent_systems/boids_box2d/ex4/sounds/*.wav
 Labs/Lab3_multiagent_systems/moving_balls_attr_sounds/sounds/*.wav
+Labs/Lab4_levy_grammar_server/grammar_based_composition/out/*.wav
+Labs/Lab3_multiagent_systems/using_box2d/sounds/*.wav
+
