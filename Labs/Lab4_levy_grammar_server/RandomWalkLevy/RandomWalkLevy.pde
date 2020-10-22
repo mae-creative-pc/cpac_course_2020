@@ -9,7 +9,7 @@ int PORT = 57120;
 PVector CENTER_SCREEN;
 float ALPHA_BACKGROUND=20;
 float probChanging=0.1;
-int NUM_WALKERS=10;
+int NUM_WALKERS=1;
 Walker walkers[];
 int W=0;
 void setup() {

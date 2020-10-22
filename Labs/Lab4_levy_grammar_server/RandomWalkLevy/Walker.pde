@@ -6,7 +6,7 @@ float BRIGHTNESS=255;
 boolean SEE_COLORS=false;
 float SEE_COLORS_ANGLE=0;
 float SEE_COLORS_RADIUS=0;
-int MONTECARLO_TYPE=1;
+int MONTECARLO_STESP=2;
 float SCALE_STEPS[]={0, 10, 50};
 
 
@@ -71,7 +71,7 @@ class Walker {
     this.prevPosition=this.position.copy();
     
     PVector step=new PVector(random(-1, 1), random(-1, 1));
-    
+    step.normalize();
     float stepsize = montecarlo();
     step.mult(stepsize*SCALE_STEPS[MONTECARLO_TYPE]);
     this.position.add(step);
@@ -93,14 +93,14 @@ class Walker {
 
 float montecarlo() {
   while (true) {
-    if(MONTECARLO_TYPE==1){
+    if(MONTECARLO_STEPS==2){
       float r1 = random(1);  
       float probability = random(1);  
   
       float r2 = random(1);  
       if (r2 < probability) { return r1;}
     }	
-    if(MONTECARLO_TYPE==2){
+    if(MONTECARLO_STEPS==1){
       float r1 = random(1);	
       float probability = pow(1.0 - r1,8);	
   
