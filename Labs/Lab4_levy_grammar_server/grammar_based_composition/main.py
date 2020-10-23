@@ -16,9 +16,51 @@ basic_grammar={
     "M": ["HH"],    
     "H": ["h", "qq"],
 }
+
+slow_grammar={
+    "S":["M", "SM"],
+    "M": ["HH","w", "$w"],    
+    "H": ["h", "$h"],
+}
+
+octave_grammar={
+    "S":["M", "SM"],
+    "M": ["HH"],    
+    "H": ["h", "QQ"],
+    "Q": ["q", "oo"],
+}
+
+triplet_grammar={
+    "S":["M", "SM"],
+    "M": ["HH", "ththth"],    
+    "H": ["h", "QQ","tqtqtq","$h"],
+    "Q": ["q", "OO", "oo", "tototo","$q"],
+    "O": ["o", "$o"]
+}
+upbeat_grammar={
+    "S":["M", "SM"],
+    "M": ["HH", "ththth","VVV", "QHQ"],    
+    "H": ["h", "QQ","tqtqtq","$h", "otototoo", "OQO"],
+    "V": ["th", "ph"], 
+    "Q": ["q", "OO", "oo", "tototo","$q", "potopo", "popoto"],
+    "O": ["o", "$o"]
+}
+
 # === Words to duration ===
 word_dur={"h":0.5, # half-measure
-           "q":0.25, # quarter-measure
+          "q":0.25, # quarter-measure
+          "o":1/8, # quarter-measure
+          "$h": 0.5,
+          "$q": 0.25,
+          "$o": 1/8,
+          "th": 1/3,
+          "tq": 1/6,
+          "to": 1/12,
+          "ph": 1/3,
+          "pq": 1/6,
+          "po": 1/12,
+          "w": 1,
+          "$w": 1,          
 }
 
 # write_mix
@@ -73,9 +115,9 @@ class Composer():
         sym_seq=[]
         dur_seq=[]
         while k<len(sequence):
-            if sequence[k] in "$t":
-                #your code
-                pass
+            if sequence[k] in "$tp":
+                sym=sequence[k]+sequence[k+1]
+                k+=2
             else:
                 sym=sequence[k]
                 k+=1
@@ -96,7 +138,7 @@ class Composer():
         self.sequence=np.zeros((int(duration_in_seconds*self.sr),))
         idx=0
         for note, symbol in zip(dur_seq, sym_seq):
-            if not symbol.startswith("$"):
+            if not (symbol.startswith("$") or symbol.startswith("p")):
                 if self.sequence.size > idx+self.sampleN: 
                     self.sequence[idx:idx+self.sampleN]+=self.sample
                 else:
@@ -113,7 +155,7 @@ class Composer():
 
 # %% main script
 if __name__=="__main__":
-    EX=1
+    EX=5
     C=None
     NUM_M=8
     START_SEQUENCE="M"*NUM_M
@@ -140,7 +182,7 @@ if __name__=="__main__":
         samples=[]
         grammars=[]# your grammars
         gains = [] #your gains
-	    fn_out="multitrack.wav"
+        fn_out="multitrack.wav"
         Gs=[]  #list of Grammar_Sequence
         Cs=[]  #list of Composer
         SR=16000 # use a common sr
@@ -149,7 +191,9 @@ if __name__=="__main__":
     if MONO_COMPOSITION:
         seqs=G.create_sequence(START_SEQUENCE)
         print("\n".join(seqs), "\nFinal sequence: ", G.sequence)    
-        C= Composer("sounds/D4cymb19.wav")
+        #C= Composer("sounds/fkick_02a.wav", BPM=174)
+
+        C= Composer("sounds/D4cymb19.wav", BPM=174)
         C.create_sequence(G.sequence)
         C.write("out/"+fn_out)
     else:
