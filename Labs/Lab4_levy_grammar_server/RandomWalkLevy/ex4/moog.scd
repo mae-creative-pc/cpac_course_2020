@@ -26,7 +26,7 @@ SynthDef("moog", {
 
 // setting the note
 (
-~instr.set(\freq, 62, \amp, 1, \vibr, 0.9);
+~instr.set(\freq, 300, \amp, 1, \vibr, 0);
 )
 
 //setting the cutoff

@@ -35,8 +35,6 @@ void draw() {
   rect(0,0,width, height);
   walker.update();
   walker.computeEffect();
-
   walker.draw();  
-  
   sendEffect(walker);
 }
