@@ -1,5 +1,5 @@
 PVector CENTER_SCREEN;
-float ALPHA_BACKGROUND=20;
+float ALPHA_BACKGROUND=0;
 int MONTECARLO_STEPS=2;
 
 Walker walker;
