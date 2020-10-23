@@ -1,5 +1,5 @@
-float SCALE_STEPS[]={0, 10, 10}; 
-// use it as SCALE_STEP[MONTECARLO_STEPS]
+float SCALE_STEPS[]={0, 50, 10}; 
+// use it as SCALE_STEPS[MONTECARLO_STEPS]
 
 
 class Walker {
