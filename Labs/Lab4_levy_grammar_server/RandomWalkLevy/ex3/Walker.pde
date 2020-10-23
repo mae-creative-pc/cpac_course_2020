@@ -17,6 +17,7 @@ class Walker {
     float normAngle= map(fromCenter.heading(), -PI, PI, 0, 1);
     colorMode(HSB);
     
+    
     color c=color(normAngle*255,255,255);    
     // your code here to change the color
     stroke(c);

@@ -28,9 +28,10 @@ class Walker {
          this.position.x, this.position.y);
   }
   void computeEffect(){
-     this.freq=0;
-     this.cutoff=0;     
-     this.amp = 0; 
+     this.freq = map(this.position.x, 0, width, 60, 300);     
+     this.amp = map(this.position.y, 0, height, 0.1, 1);     
+     
+     this.cutoff=0.5;
      this.vibrato=0;
       // your code
   }

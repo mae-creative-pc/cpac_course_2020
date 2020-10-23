@@ -1,4 +1,4 @@
-float STEPSCALE=20;
+float STEPSCALE=10;
 
 class Walker {
   PVector position;
@@ -23,8 +23,8 @@ class Walker {
     step.mult(stepsize*STEPSCALE);
     this.prevPosition=this.position.copy();   
     this.position.add(step);
-    //this.position.x=constrain(this.position.x, 0, width);    
-    //this.position.y=constrain(this.position.y, 0, height);
+    this.position.x=constrain(this.position.x, 0, width);    
+    this.position.y=constrain(this.position.y, 0, height);
   }
 }
 
