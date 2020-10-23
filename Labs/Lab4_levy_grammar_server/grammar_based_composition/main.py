@@ -140,7 +140,7 @@ if __name__=="__main__":
         samples=[]
         grammars=[]# your grammars
         gains = [] #your gains
-	    fn_out="multitrack.wav"
+        fn_out="multitrack.wav"
         Gs=[]  #list of Grammar_Sequence
         Cs=[]  #list of Composer
         SR=16000 # use a common sr
