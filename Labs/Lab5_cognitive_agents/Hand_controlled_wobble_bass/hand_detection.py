@@ -92,7 +92,7 @@ if __name__ == "__main__":
 		else:
 			
 			# segment the hand region
-			#hand = segment(gray)
+			hand = segment(gray)
 			
 
 			# check whether hand region is segmented
@@ -106,9 +106,9 @@ if __name__ == "__main__":
 				
 				
 				# Center of the hand
-				#c_x, c_y = detect_palm_center(segmented)
-				#radius = 5
-				#cv2.circle(thresholded, (c_x, c_y), radius, 0, 1)
+				c_x, c_y = detect_palm_center(segmented)
+				radius = 5
+				cv2.circle(thresholded, (c_x, c_y), radius, 0, 1)
 				
 				cv2.imshow("Thesholded", thresholded)
 

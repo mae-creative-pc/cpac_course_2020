@@ -24,11 +24,11 @@ def segment(image, threshold=25):
 
     # Find the absolute difference between background and current image
     # FILL THE CODE
-    # diff = cv2.absdiff(bg.astype("uint8"), # ....? )
+    diff = cv2.absdiff(bg.astype("uint8"), image)
     
     # Threshold the diff image so that we get the foreground
     # FILL THE CODE
-    #thresholded = cv2.threshold(# ....?, # ....?, 255, cv2.THRESH_BINARY)[1]
+    thresholded = cv2.threshold(diff, threshold, 255, cv2.THRESH_BINARY)[1]
 
     # get the contours in the thresholded image
 
@@ -56,6 +56,6 @@ def detect_palm_center(segmented):
     extreme_right = tuple(chull[chull[:, :, 0].argmax()][0])[0]
 
     # Find the center of the palm
-    #c_x = # FILL THE CODE
-    #c_y = # FILL THE CODE 
+    c_x = int((extreme_left+extreme_right)/2)
+    c_y = int((extreme_top+extreme_bottom)/2)
     return c_x, c_y
