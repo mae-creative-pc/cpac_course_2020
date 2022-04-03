@@ -65,7 +65,13 @@ word_dur={"h":0.5, # half-measure
 
 # write_mix
 def write_mix(Cs, gains=None, fn_out="out.wav"):
-    # your code                            
+    maxN=0
+    for C in Cs:
+        maxN=max(maxN, C.sequence.size)
+    track=np.zeros((len(Cs), maxN))
+    for i in range(len(Cs)):
+        track[i, 0:Cs[i].sequence.size]=gains[i]*Cs[i].sequence
+    track = np.sum(track, axis=0)                            
     track=0.707*track/np.max(np.abs(track))
     sf.write(fn_out, track, Cs[0].sr)
 
@@ -155,7 +161,7 @@ class Composer():
 
 # %% main script
 if __name__=="__main__":
-    EX=5
+    EX=7
     C=None
     NUM_M=8
     START_SEQUENCE="M"*NUM_M
@@ -179,15 +185,43 @@ if __name__=="__main__":
         G=Grammar_Sequence(clave_grammar)
         fn_out="clave_composition.wav"
     elif EX==7:
-        samples=[]
-        grammars=[]# your grammars
-        gains = [] #your gains
+        samples=["D4cymb19.wav", 
+                "fkick_02a.wav", 
+                "Rimsd1.wav", 
+                "snar_07a.wav", 
+                "tr_hrk_bd_02_a.wav", 
+                "tr_hrk_scratch_02_a.wav"]
+        grammars=[# your grammars
+                  triplet_grammar,      #"D4cymb19.wav",
+                  slow_grammar,      #"fkick_02a.wav",
+                  slow_grammar,      #"Rimsd1.wav",
+                  upbeat_grammar,      #"snar_07a.wav",
+                  slow_grammar,      #"tr_hrk_bd_02_a.wav",
+                  triplet_grammar      #"tr_hrk_scratch_02_a.wav",
+                 ]
+        gains = [ #your gains
+                   0.6,     #"D4cymb19.wav",
+                   1,     #"fkick_02a.wav",
+                   1,     #"Rimsd1.wav",
+                   1,     #"snar_07a.wav",
+                   0,     #"tr_hrk_bd_02_a.wav",
+                   0.6,     #"tr_hrk_scratch_02_a.wav",
+                 ]
         fn_out="multitrack.wav"
         Gs=[]  #list of Grammar_Sequence
-        Cs=[]  #list of Composer
-        SR=16000 # use a common sr
+        Cs=[]  #list of Composer        
+        SR=44100 # use a common sr
+        BPM=120
         # your code...
 
+        for i in range(len(samples)):
+            G_i=Grammar_Sequence(grammars[i])
+            seqs=G_i.create_sequence(START_SEQUENCE)                    
+            C_i= Composer("sounds/"+samples[i], BPM=BPM, sr=SR)
+            C_i.create_sequence(G_i.sequence)
+            Cs.append(C_i)
+        
+        
     if MONO_COMPOSITION:
         seqs=G.create_sequence(START_SEQUENCE)
         print("\n".join(seqs), "\nFinal sequence: ", G.sequence)    
