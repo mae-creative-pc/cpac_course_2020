@@ -2,9 +2,9 @@
 /* PARAMETERS */
 String API_URL="https://zabucco.pythonanywhere.com";
 // time constants in seconds
-float TIME_FADEIN=5; // time after which a new text is shown
-float TIME_FADEOUT=5; // time after which a new text is shown
-float TIME_FIXED=10; // time after which a new text is shown
+float TIME_FADEIN=1; // time after which a new text is shown
+float TIME_FADEOUT=1; // time after which a new text is shown
+float TIME_FIXED=3; // time after which a new text is shown
 float TIME_RELOAD=3; // period to try to reaload
 boolean VERBOSE=true;
 float TEXTSIZE=200;
